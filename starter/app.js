@@ -32,22 +32,29 @@ var UIController = (function() {
 
 var controller = (function(budgetCtrl, UICtrl) {
 
+  var setupEventListeners = function() {
+    var DOM = UICtrl.getDOMstrings();
+    document.querySelector(DOM.inputBTN).addEventListener('click', ctrlAddItem);
+
+    document.addEventListener('keypress', function(event) {
+      if (event.keyCode === 13){
+        ctrlAddItem();
+      }
+    });
+  };
+
   var DOM = UICtrl.getDOMstrings();
 
   var ctrlAddItem = function() {
     var input = UICtrl.getInput();
-    console.log(input);
-  }
+  };
 
-  document.querySelector(DOM.inputBTN).addEventListener('click', ctrlAddItem);
-
-  document.addEventListener('keypress', function(event) {
-    if (event.keyCode === 13){
-      ctrlAddItem();
+  return {
+    init: function() {
+      setupEventListeners();
     }
-  });
-
-
-
+  };
 
 })(budgetController, UIController);
+
+controller.init();
